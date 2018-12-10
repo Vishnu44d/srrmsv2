@@ -13,12 +13,12 @@
      or
 
      ```bash
-     python -m venv venv && source venv/bin/activate
+     python -m venv environment && source venv/bin/activate
      ```
   - #### Step 2
     Clone this repo
     ```bash
-    git clone https://github.com/Vishnu44d/SRRMS.git && cd environment
+    git clone https://github.com/Vishnu44d/srrmsv2.git && cd environment
     ```
 
   - #### Step 3
@@ -27,28 +27,16 @@
     pip install -r requirements.txt
     ```
   - #### Step 4
-    - initialize database
-      ```bash
-        python manage.py db init
-      ```
-    - migrate database
-       ```bash
-        python manage.py db migrate
-      ```
-    - update database
-      ```bash
-        python manage.py db upgrade
-      ```
-    - tsting the system
-      ```bash
-        python manage.py test
-      ```
     - running the server
       ```bash
         python manage.py run
       ```
 
-
-
 ## Api
   The Api end points are `'\'`
+  - ### /user/
+  ```javascript
+  {
+    "status": "success/fail" 
+  }
+  ```
