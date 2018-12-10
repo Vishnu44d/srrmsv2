@@ -3,17 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from SRRMSv2.models import db
 from SRRMSv2.api import statusBP, bookBP, userBP
-from SRRMSv2.config import *
+from SRRMSv2.config import DevelopmentConfig, config_by_name
 from SRRMSv2 import create_db_engine, create_db_sessionFactory
 
 config_name = 'dev'
 
-
+db = SQLAlchemy()
 engine = create_db_engine(DevelopmentConfig)
 SessionFactory = create_db_sessionFactory(engine)
 SQLSession = create_db_sessionFactory(engine)
-
-
 
 
 app = Flask(__name__)

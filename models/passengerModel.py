@@ -5,10 +5,6 @@ from .meta import Base
 import datetime
 
 
-
-db =SQLAlchemy()
-
-
 class Passenger(Base):
 	"""A user after he/she has booked a ticket"""
 	

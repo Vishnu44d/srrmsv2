@@ -1,29 +1,36 @@
 from flask import request, Blueprint, jsonify
+from SRRMSv2.models.trainModel import TrainStatus
+from SRRMSv2.models.passengerModel import Passenger
 
 statusBP = Blueprint('StatusAPI', __name__)
 
 @statusBP.route('/', methods=['POST'])
 def get_status():
+    data = request.json
+    get_seat(data)
+
+
+
+def get_seat(data):
     from SRRMSv2.server import SQLSession
     session = SQLSession()
-    data = request.json
-    train = session.query(User).filter_by(train_id=data['train_id']).first()
+    train = session.query(TrainStatus).filter_by(train_id=data['train_id']).first()
     if not train:
         response_object = {
             "status": "fail",
-            "message": "Train id doesn't exist"
+            "message": "train doesn't exist"
         }
         return jsonify(response_object), 400
     else:
         if train.available_seat == 0:
-            response_object={
+            response_object = {
                 "status": "Success",
                 "seat_available": "Not Available",
                 "seat_wait": train.wait_seat
             }
-            return jsonify(response_object), 200
+            return jsonify(response_object), 201
         if train.available_seat != 0:
-            response_object={
+            response_object = {
                 "status": "Success",
                 "seat_available": train.available_seat,
             }
@@ -35,7 +42,7 @@ def get_pnr_status():
     from SRRMSv2.server import SQLSession
     session = SQLSession()
     data = request.json
-    passanger = session.query(Passanger).filter_by(pnr=data['pnr']).first()
+    passanger = session.query(Passenger).filter_by(pnr=data['pnr']).first()
     if not passanger:
         response_object = {
             "status": "fail",
