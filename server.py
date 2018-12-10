@@ -1,24 +1,24 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from SRRMSv2.models import db
 from SRRMSv2.api import statusBP, bookBP, userBP
 from SRRMSv2.config import DevelopmentConfig, config_by_name
 from SRRMSv2 import create_db_engine, create_db_sessionFactory
+from SRRMSv2.models import createTables
+
 
 config_name = 'dev'
 
-db = SQLAlchemy()
+
 engine = create_db_engine(DevelopmentConfig)
+createTables(engine)
 SessionFactory = create_db_sessionFactory(engine)
 SQLSession = create_db_sessionFactory(engine)
 
 
 app = Flask(__name__)
-Migrate(app, db)
 app.config.from_object(config_by_name[config_name])
-with app.app_context():
-    db.init_app(app)
+
 
 app.register_blueprint(statusBP, url_prefix='/status')
 app.register_blueprint(bookBP, url_prefix='/book')
