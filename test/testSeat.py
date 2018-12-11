@@ -1,11 +1,13 @@
 from SRRMSv2.api.status import get_seat
 
-data = {
+seat_avaibility = 
+{
 	"train_id": "13467"
 }
 print(get_seat(data))
 
 ############### booking a ticket
+passanger = 
 {
 	"email": "test@test.com",
 	"pname": "testtest",
@@ -21,6 +23,7 @@ print(get_seat(data))
 
 
 ######### adding a user
+user = 
 {
 	"action": "add",
 	"public_id": "99",
@@ -29,7 +32,7 @@ print(get_seat(data))
 	"password": "testpassword"
 }
 
-
+login = 
 {
 	"email": "test@test.com",
 	"password": "testpassword"
