@@ -10,19 +10,15 @@ def get_trains():
     data = request.json
     #try:
     train_ids = find_trains(data)
-    '''except:
-        response_object = {
-            "ststus": "fail",
-            "message": "error in searchAction"
-        }
-        return jsonify(response_object), 500'''
+
+    
     from SRRMSv2.server import SQLSession
     session = SQLSession()
     trains = {}
     try:
         for t in train_ids:
-            train = session.query(Train).filter_by(train_id=data['train_id']).first()
-            train_ = session.query(TrainSpec).filter_by(train_id=data['train_id']).first()
+            train = session.query(Train).filter_by(train_id=t).first()
+            train_ = session.query(TrainSpec).filter_by(train_id=t).first()
             train[str(t)] = {"train_name": train.train_name, "train_type": train.train_type, "train_source_stn": train_.start_sid, "train_end_stn": train_.end_stn}
         response_object = {
             "status": "success",

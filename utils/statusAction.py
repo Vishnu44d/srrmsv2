@@ -18,7 +18,7 @@ def cancelTicket(data):
         return jsonify(response_object) , 400
     else:
         # True : passenger is in confirmed status
-        if passenger.reserved_status == True:
+        if passenger.reserve_status == True:
             
             try:
                 book1 = sess.query(book1).filter_by(pnr = passenger.pnr).first()
@@ -28,10 +28,18 @@ def cancelTicket(data):
                 train_status = sess.query(TrainStatus).filter_by(train_id==book1.train_id).first()
                 if train_status.wait_seat > 0:
                     passenger2 = sess.query(Passenger).filter_by(reserve_status == False ).first()
-                    
+                    sess.query(Passenger).filter(pnr = passenger2.pnr).update({"reserve_status":True},synchronize_session='evaluate')
+                    sess.commit()
                     
                 else:
-                    sess.query(TrainStatus).update({"available_seat":TrainStatus.available_seat+1},synchronize_session='evaluate')
+                    sess.query(TrainStatus).filter(train_id = book1.train_id).update({"available_seat":TrainStatus.available_seat+1},synchronize_session='evaluate')
+                    sess.commit()
+            except:
+                 ro = {
+                        'status' : 'fail',
+                        'message': 'could not cancel your ticket and add new passenger from waiting list'
+                        }
+                 return jsonify(ro),402
                     #sess.query(update(train_status,values={train_status.available_seat:train_status.available_seat+1}))
         # passenger was in waiting list , before cancelling ticket
         else:

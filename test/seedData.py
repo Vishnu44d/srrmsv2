@@ -150,14 +150,20 @@ def generate_consists_of():
     return all_trains_specs
 
 
+
+'''from SRRMSv2.server import SQLSession
+sess = SQLSession()
+sess.query(ConsistsOf).delete()
+sess.commit()'''
+
 def save_changes_in_consists_of():
     from SRRMSv2.server import SQLSession
     train_consistsof = generate_consists_of()
     for tr in train_consistsof:
         session = SQLSession()
         new_consistsof = ConsistsOf(
-            station_id = tr[0],
-            train_id = tr[1],
+            train_id = tr[0],
+            station_id = tr[1],
             stop_no = tr[2]
         )
         session.add(new_consistsof)
@@ -170,8 +176,8 @@ def get_all_consistsof():
     for t in train_consistsof:
         print(t.station_id, t.train_id, t.stop_no)
 
-#save_changes_in_consists_of()
-#get_all_consistsof()
+save_changes_in_consists_of()
+get_all_consistsof()
 
 
 
@@ -233,5 +239,5 @@ def get_all_train_status_():
         print(t.train_id, t.wait_seat, t.available_seat)
 
 #save_changes_in_tain_status()
-get_all_train_status_()
+#get_all_train_status_()
 

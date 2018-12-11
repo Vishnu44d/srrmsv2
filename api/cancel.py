@@ -1,11 +1,18 @@
 from flask import request, Blueprint, jsonify
-from SRRMSv2.models.userModel import User
-import uuid
-import datetime
-from SRRMSv2.models.userModel import db
-import json
-from SRRMSv2.auth.auth import validate_key, validate_user
+from SRRMSv2.utils.statusAction import cancelTicket
 
 cancelBP = Blueprint('cancelApi', __name__)
 
-#@userBP.route('/', methods=['GET', 'POST'])
+'''@cancelBP.route('/', methods=['GET', 'POST'])
+def get_trains():
+    data = request.json
+    #try:
+        #return cancelTicket(find_trains(data))
+    #except:
+        response_object = {
+            "ststus": "fail",
+            "message": "error in statusAction"
+        }
+        return jsonify(response_object), 500'''
+    
+   

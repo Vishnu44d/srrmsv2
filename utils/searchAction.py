@@ -16,12 +16,40 @@ def find_trains(data):
     
     start_match = sess.query(ConsistsOf).filter_by(station_id = data['source_id']).all()
     dest_match = sess.query(ConsistsOf).filter_by(station_id = data['dest_id']).all()
+
+    '''
+    with open("some.txt", "w") as f:
+        f.write(str(start_match))
+        f.write(str(dest_match))
+    '''
+    start_match = [i.__dict__ for i in start_match]
+    dest_match = [i.__dict__ for i in dest_match]
+
     start_match = pd.DataFrame(start_match)
     dest_match = pd.DataFrame(dest_match)
-    start_match.rename(columns={'stop_no':'source_no'})
-    dest_match.rename(columns={'stop_no':'dest_no'})
-    final = pd.merge(start_match , dest_match , how ='inner',on=['train_id'])
-    final = final[  final['dest_no'] - final['source_no'] > 0 ]
+
+    start_match.to_csv('start_match.csv')
+    dest_match.to_csv('dest_match.csv')
+
+    start_match.rename(columns={'stop_no':'source_no'}, inplace=True)
+    dest_match.rename(columns={'stop_no':'dest_no'}, inplace=True)
     
+    final = pd.merge(start_match , dest_match , how ='inner',on=['train_id'])
+    #final.to_csv("final.csv")
+    #final = final.apply(pd.to_numeric)
+    #final[['dest_no', 'source_no']] =  pd.to_numeric(final[['dest_no', 'source_no']])
+
+    return valid_tid(final)
+
+    #final = final[  final['dest_no'] - final['source_no'] > 0 ]
     #LIST OF TRAIN_ID S THAT Traverse the ROUTE requested by the USER
-    return final['train_id']
+    #return final['train_id']
+    
+
+
+def valid_tid(final):
+    ls=[]
+    for i in final.iterrows():
+        if int(i[1][6]) - int(i[1][2]) > 0 :
+            ls.append(i[1][4])
+    return ls
