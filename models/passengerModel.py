@@ -32,5 +32,5 @@ class Book1(Base):
 class Book2(Base):
 	__tablename__ = "Book2"
 	pnr = Column(String(20), primary_key = True )
-	date = Column(DateTime , nullable = False)
+	date = Column(String(20) , nullable = False)
 	

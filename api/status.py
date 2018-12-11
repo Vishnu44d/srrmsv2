@@ -63,4 +63,19 @@ def get_pnr_status():
                 "waiting number": passanger.seat_number
             }
             return jsonify(response_object), 200
-    
+
+
+
+@statusBP.route('/all_pnr', methods=['POST'])
+def get_all_pnr():
+    from SRRMSv2.server import SQLSession
+    session = SQLSession()
+    data = request.json
+    passanger = session.query(Passenger).all()
+    passangers = [{"name":i.p_name, "pnr":i.pnr, "seat_no":i.seat_no, "status":i.reserve_status} 
+    for i in passanger]
+    response_object = {
+        "status": 'success',
+        "data": passangers
+    }
+    return jsonify(response_object), 200

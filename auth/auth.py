@@ -37,3 +37,15 @@ def validate_user(data):
             return jsonify(responce_object), 400
         
 
+def is_valid_user(data):
+    from SRRMSv2.server import SQLSession
+    session = SQLSession()
+    user = session.query(User).filter_by(email=data['email']).first()
+    if not user:
+        return 400
+    else:
+        if data['key'] == pub_key:
+            return 200
+        else:
+            return 400
+
