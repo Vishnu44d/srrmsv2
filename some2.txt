@@ -1,0 +1,7 @@
+(0, source_no        1
+dest_no          5
+train_id     13467
+Name: 0, dtype: object)<class 'tuple'>(1, source_no        1
+dest_no         40
+train_id     15789
+Name: 1, dtype: object)<class 'tuple'>['13467', '15789']

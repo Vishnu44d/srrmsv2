@@ -11,25 +11,25 @@ def get_trains():
     #try:
     train_ids = find_trains(data)
 
-    
-    from SRRMSv2.server import SQLSession
-    session = SQLSession()
-    trains = {}
-    try:
+    '''with open("some.txt", "w") as f:
+        f.write(str(train_ids))'''
+    if len(train_ids) != 0:
+        from SRRMSv2.server import SQLSession
+        session = SQLSession()
+        trains = {}
+        #try:
         for t in train_ids:
             train = session.query(Train).filter_by(train_id=t).first()
             train_ = session.query(TrainSpec).filter_by(train_id=t).first()
-            train[str(t)] = {"train_name": train.train_name, "train_type": train.train_type, "train_source_stn": train_.start_sid, "train_end_stn": train_.end_stn}
+            trains[str(t)] = {"train_name": train.train_name, "train_type": train.train_type, "train_source_stn": train_.start_sid, "train_end_stn": train_.end_sid}
         response_object = {
             "status": "success",
-            "data": d
+            "data": trains
         }
         return jsonify(response_object), 200
-    except:   
+    else:
         response_object = {
-            "ststus": "fail",
-            "message": "error in loop"
+            "status": "fail",
+            "message": "no trains in this route"
         }
-        return jsonify(response_object), 500
-
-    
+        return jsonify(response_object), 401

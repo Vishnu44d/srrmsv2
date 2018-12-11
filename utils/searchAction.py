@@ -35,11 +35,15 @@ def find_trains(data):
     dest_match.rename(columns={'stop_no':'dest_no'}, inplace=True)
     
     final = pd.merge(start_match , dest_match , how ='inner',on=['train_id'])
-    #final.to_csv("final.csv")
+    
     #final = final.apply(pd.to_numeric)
     #final[['dest_no', 'source_no']] =  pd.to_numeric(final[['dest_no', 'source_no']])
-
-    return valid_tid(final)
+    
+    #return valid_tid(final)
+    final = final[['source_no','dest_no','train_id']]
+    final.to_csv("final.csv")
+    l = valid_tid(final)
+    return l
 
     #final = final[  final['dest_no'] - final['source_no'] > 0 ]
     #LIST OF TRAIN_ID S THAT Traverse the ROUTE requested by the USER
@@ -50,6 +54,7 @@ def find_trains(data):
 def valid_tid(final):
     ls=[]
     for i in final.iterrows():
-        if int(i[1][6]) - int(i[1][2]) > 0 :
-            ls.append(i[1][4])
+        
+        if int(i[1][1]) - int(i[1][0]) > 0 :
+            ls.append(i[1][2])   
     return ls

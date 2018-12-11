@@ -3,6 +3,9 @@ from sqlalchemy.orm import sessionmaker
 import os
 from sqlalchemy_utils.functions import create_database, database_exists
 from .config import DevelopmentConfig
+from flask import Flask
+from server import app
+
 
 def create_db_engine(config):
     if(not database_exists(config.SQLALCHEMY_DATABASE_URI)):

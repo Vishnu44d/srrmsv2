@@ -19,6 +19,9 @@ SQLSession = create_db_sessionFactory(engine)
 app = Flask(__name__)
 app.config.from_object(config_by_name[config_name])
 
+@app.route('/')
+def get():
+    return "Hello"
 
 app.register_blueprint(statusBP, url_prefix='/status')
 app.register_blueprint(bookBP, url_prefix='/book')
