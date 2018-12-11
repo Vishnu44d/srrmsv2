@@ -1,0 +1,26 @@
+12	A
+43	B
+01	G
+09	P
+11	L
+34	K
+13	E
+21	Howrah Junction
+54	Delhi
+10	Kota
+15	Bolpur
+97	Malda
+23	Purulia
+57	Y
+67	D
+14	O
+06	H
+07	T
+03	H
+02	I
+52	F
+99	R
+90	X
+86	Z
+17	Q
+85	J

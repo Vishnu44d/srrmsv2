@@ -7,7 +7,7 @@ statusBP = Blueprint('StatusAPI', __name__)
 @statusBP.route('/', methods=['POST'])
 def get_status():
     data = request.json
-    get_seat(data)
+    return get_seat(data)
 
 
 
@@ -15,6 +15,7 @@ def get_seat(data):
     from SRRMSv2.server import SQLSession
     session = SQLSession()
     train = session.query(TrainStatus).filter_by(train_id=data['train_id']).first()
+    print(train.available_seat)
     if not train:
         response_object = {
             "status": "fail",
@@ -29,7 +30,7 @@ def get_seat(data):
                 "seat_wait": train.wait_seat
             }
             return jsonify(response_object), 201
-        if train.available_seat != 0:
+        else:
             response_object = {
                 "status": "Success",
                 "seat_available": train.available_seat,

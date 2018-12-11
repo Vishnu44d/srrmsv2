@@ -1,0 +1,5 @@
+13467	Howrah Junction	Delhi
+15789	Howrah Junction	Kota
+12467	Santragachi	Bolpur
+14790	Howrah Junction	Purulia
+14678	Shalimar	Malda
