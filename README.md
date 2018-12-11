@@ -37,6 +37,7 @@
   - ### /user/
   ```javascript
   {
-    "status": "success/fail" 
+    "status": "success/fail",
+    "data/message": "data or error message" 
   }
   ```
